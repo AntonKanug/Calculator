@@ -2,7 +2,7 @@
 Calculator with many mathematical operations
 
 
-#Graphics Install Guide:
+Graphics Install Guide:
 1. Download the graphics.py file
 2. Move graphics.py into the site-packages folder
 
