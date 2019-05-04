@@ -1,5 +1,5 @@
 # Calculator
-Calculator with many mathematical operations
+Description: Calculator with many mathematical operations
 
 
 Graphics Install Guide:
