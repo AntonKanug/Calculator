@@ -1,4 +1,4 @@
-# Calculator
+# Polynomial-Calculator
 Description: Calculator with mathematical operations such as Deravitvies, Defintie Integrals & Graphing
 
 
