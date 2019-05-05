@@ -51,7 +51,7 @@ while done != "1":
     #Asking user for what calculator is to be used
     print("-------------------------------------------------------------------------")
     print("For Deravitive Calculator enter \"2\":\nFor Definite Integral enter \"3\":")
-    print("For a graph of the function enter \"4\" (Warning the program wil terminate after graphing is executed)")
+    print("For a graph of the function enter \"4\": (Warning the program must be terminateed for graphing to execute)")
     print("To end the program enter \"0\":")
 
     insertCal = input("")
@@ -112,12 +112,11 @@ while done != "1":
         pylab.title("Graph of the given function")
         pylab.plot(xVal,y)
         pylab.show
-        #The loop need to be ended inorder for the graph to appear
-        break
+        
+        
     else:
         print("\nInvalid input, Enter a valid input")
         continue
-    
     
     
     #Asking if the user is finished:
