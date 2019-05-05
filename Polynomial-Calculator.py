@@ -8,8 +8,8 @@ checkFunc = 0
 while checkFunc !="1":   
     
     #Scanning
-    maxPower = input("Enter the exponents in the function separated by a space:")
-    coeff = input("Enter the coefficients from the order of exponents separated by a space:")
+    maxPower = input("Enter the exponents in the function separated by a space: (x^n)")
+    coeff = input("Enter the coefficients from the order of exponents separated by a space: (ax^n)")
         
     #Getting powers and coefficients out of the given input
     powerList = maxPower.split(" ")
