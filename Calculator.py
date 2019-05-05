@@ -4,54 +4,54 @@
 import pylab
 
 ###Getting the function from user
-insert = 0
-while insert !="1":   
+checkFunc = 0
+while checkFunc !="1":   
     
     #Scanning
-    maxPower = int(input("Enter the highest power in the funciton:"))
-    coeff = input("Enter the coeffiecents from descending order of power sperated by a space:")
+    maxPower = input("Enter the exponents in the function separated by a space:")
+    coeff = input("Enter the coefficients from the order of exponents separated by a space:")
         
-    #Getting coefficents out of the given input
+    #Getting powers and coefficients out of the given input
+    powerList = maxPower.split(" ")
     coeffList = coeff.split(" ")
     
     #Checking if the function is correct
-    if len(coeffList)>maxPower+1:
-        print("More coefficents than powers enter your funtion appropriately again")
+    if len(coeffList)!=len(powerList):
+        print("More coefficients or exponents than the other, enter your function appropriately again")
         continue 
             
     #Printing the function in a readable sense for the user
     print("-------------------------------------------------------------------------")
     z=0
-    for i in coeffList:
+    for i in range(len(coeffList)):
         if z < len(coeffList)-1:
-            print(str(i)+"x^"+str(maxPower-z) ,end=" + ")
+            print(str(coeffList[i])+"x^"+str(powerList[i]) ,end=" + ")
         z+=1
     #Printing the last part of the polynomial to avoid "+" at the end
-    if maxPower-z+1==0:
+    if len(coeffList)-z+1==0:
         print(coeffList[-1])
     else:
-        print(str(coeffList[-1])+ "x^" + str(maxPower-z+1))
-    insert = input("\nIf this is the correct function enter \"1\" if not enter any other key:")
+        print(str(coeffList[-1])+ "x^" + str(powerList[-1]))
+    checkFunc = input("\nIf this is the correct function enter \"1\" if not enter any other key:")
 
     
-###Calcuating values from the given function
+###Calculating values from the given function
 def f(x):
-    yVal, power, z=0, maxPower, 0
-    for i in coeffList:
-        yVal += float(i)*(x**(power-z))
-        z+=1        
+    yVal =0
+    for i in range(len(coeffList)):
+        yVal += float(coeffList[i])*(x**(float(powerList[i])))       
     return yVal
 
 
 
-###while loop till the user is finished
+###while loop till the user is finished with the operations
 done = "0"
 while done != "1":
     
     #Asking user for what calculator is to be used
     print("-------------------------------------------------------------------------")
-    print("For Deravitive Calculator enter \"2\":\nFor Definite Integral enter \"3\":")
-    print("For a graph of the function enter \"4\": (Warning the program must be terminateed for graphing to execute)")
+    print("For Derivative Calculator enter \"2\":\nFor Definite Integral enter \"3\":")
+    print("For a graph of the function enter \"4\": (Warning the program must be terminated for graphing to execute)")
     print("To end the program enter \"0\":")
 
     insertCal = input("")
@@ -59,13 +59,13 @@ while done != "1":
         break
         
         
-    ##Deravitve Calculator
+    ##Derivative Calculator
     elif insertCal == "2":
         print("-------------------------------------------------------------------------")
         x = float(input("Enter the x value:"))    
         m = (f(x+1e-8)-f(x))/1e-8
         print("-------------------------------------------------------------------------")
-        print("\nThe slope at the point (" + str(x) + "," +str(f(x)) +") is approxrimately " + str(round(m,4)))
+        print("\nThe slope at the point (" + str(x) + "," +str(f(x)) +") is approximately " + str(round(m,4)))
     
     
     ##Definite Integral
@@ -73,10 +73,10 @@ while done != "1":
         
         #Asking user for interval and num of slices
         print("-------------------------------------------------------------------------")
-        intervalInput = input("Enter the interval to find the area: (seperated by a space)")
+        intervalInput = input("Enter an interval that f(x) is continuous to find the area: (seperated by a space)")
         intervalInt = intervalInput.split(" ")
         x1, x2 = float(intervalInt[0]), float(intervalInt[1])
-        step = float(input("Enter number of slices to calculate area: (higher number slices = higher accuray)"))
+        step = float(input("Enter number of slices to calculate area: (higher number slices = higher accuracy)"))
         
         #Calculation area using Riemann Summation
         dx=(x2-x1)/step
@@ -88,7 +88,7 @@ while done != "1":
         print(round(area,4))
         
         
-    ##Graphing
+    ##Graphing the function
     elif insertCal == "4":
 
         #Asking for a domain
