@@ -65,9 +65,7 @@ for i in range(len(y)):
         coeffList.append((x[i][0]))
         powerList.append("0")
         
-print(x)
-print(powerList,coeffList)
-    
+
 #Finding the Derivative and Integral functions
 derivExpList , intExpList, derivCoeff, intCoeff = [], [], [], []
 for i in range(len(coeffList)):
