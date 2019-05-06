@@ -1,101 +1,211 @@
-#Anton Kanugalwattage
-#May 4, 2019
-#Calculator for ploynomials to calculate roots, slope, area under curve and graphing.
+'''
+Anton Kanugalwattage
+May 4, 2019
+Calculator for ploynomials, Overview:
+- Derivative, Slope at a point
+- Integral, Definite Integral
+- Graphing
+'''
+
 import pylab
-
-###Getting the function from user
-checkFunc = 0
-while checkFunc !="1":   
+import math
+from fractions import Fraction
+###Getting the function from user 
     
-    #Scanning
-    maxPower = input("Enter the exponents in the function separated by a space: (x^n)")
-    coeff = input("Enter the coefficients from the order of exponents separated by a space: (ax^n)")
+#Scanning the function
+func = input("Enter the function each separated by a space: (Eg: ax^n + cx^m + b)")
+    
+#Taking the function and creating a list of coeff and exponents
+funcS = func.split(" ")
+y,x=[],[]
+for i in range(len(funcS)):
+    if funcS[i]!= " ":
+        y.append(funcS[i])
+coeffList, powerList = [],[]    
+
+for i in range(len(y)):
+    x.append(y[i].split("x"))
+    
+    if len(x[i])==2 and i==0 and x[i][1]=="" and x[i][0]=="":
+        coeffList.append(1)
+        powerList.append(1)
         
-    #Getting powers and coefficients out of the given input
-    powerList = maxPower.split(" ")
-    coeffList = coeff.split(" ")
+    elif len(x[i])==2 and i==0 and x[i][1]=="":
+        coeffList.append((x[i][0]))
+        powerList.append(1)
+        
+    elif len(x[i])==1 and i==0:
+        coeffList.append((x[i][0]))
+        powerList.append("0")
     
-    #Checking if the function is correct
-    if len(coeffList)!=len(powerList):
-        print("More coefficients or exponents than the other, enter your function appropriately again")
-        continue 
-            
-    #Printing the function in a readable sense for the user
-    print("-------------------------------------------------------------------------")
-    z=0
-    for i in range(len(coeffList)):
-        if z < len(coeffList)-1:
-            print(str(coeffList[i])+"x^"+str(powerList[i]) ,end=" + ")
-        z+=1
-    #Printing the last part of the polynomial to avoid "+" at the end
-    if len(coeffList)-z+1==0:
-        print(coeffList[-1])
+    elif i==0 and len(x[i])==2 and len(x[i][0])!=0:
+            coeffList.append((x[i][0][0:]))
+            powerList.append(x[i][1][1:])
+
+    elif i==0 and len(x[i])==2:
+        coeffList.append("1")
+        powerList.append(x[i][1][1:])
+
+    elif i==0 and len(x[i])==1:
+        coeffList.append((x[i][0][:-1]))
+    
+    elif len(x[i])==2 and i%2==0 and x[i][1]=="" and x[i][0]=="":
+        coeffList.append(1)
+        powerList.append(1)
+
+    elif len(x[i])==2 and i%2==0 and x[i][1]=="":
+        coeffList.append(x[i-1][0]+(x[i][0]))
+        powerList.append(1)
+
+    elif len(x[i])==2 and i%2==0:
+        coeffList.append(x[i-1][0]+(x[i][0]))
+        powerList.append(x[i][1][1:])
+
+    elif len(x[i])==1 and i%2==0:
+        coeffList.append((x[i][0]))
+        powerList.append("0")
+        
+print(x)
+print(powerList,coeffList)
+    
+#Finding the Derivative and Integral functions
+derivExpList , intExpList, derivCoeff, intCoeff = [], [], [], []
+for i in range(len(coeffList)):
+    derivExpList.append(float(powerList[i])-1)
+    intExpList.append(float(powerList[i])+1)
+    derivCoeff.append(float(coeffList[i])*float(powerList[i]))
+    if intExpList[i] == 0:
+        intCoeff.append(float(coeffList[i]))
     else:
-        print(str(coeffList[-1])+ "x^" + str(powerList[-1]))
-    checkFunc = input("\nIf this is the correct function enter \"1\" if not enter any other key:")
+        intCoeff.append(float(coeffList[i])/float(intExpList[i]))
+
+##Printing the function
+print("__________________________________________________________________________________________________")
+print("Function is; f(x) = "+func)
+##Printing the Derivative function
+print("__________________________________________________________________________________________________")
+#Removing the 0 coeff case
+derivCoeffUP,derivExpListUP=[], []
+for i in range(len(derivCoeff)):
+    if derivCoeff[i]!=0.0:
+        derivCoeffUP.append(derivCoeff[i])
+        derivExpListUP.append(derivExpList[i])
+        
+print("First Deravitive is; f'(x) = ", end = "")
+z=0
+for i in range(len(derivCoeffUP)):
+    if z < len(derivCoeffUP)-1:
+        if derivExpListUP[i]==1.0:
+            print(str(derivCoeffUP[i])+"x" ,end=" + ")
+        elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
+            print(derivCoeffUP[i], end=" + ")
+        elif derivCoeff[i] !=0 and derivExpList[i] !=-1:
+            print(str(derivCoeffUP[i])+"x^"+str(derivExpListUP[i]) ,end=" + ")
+    z+=1
+    
+#Printing the last part of the polynomial to avoid "+" at the end
+if derivExpListUP[-1]==0 and derivCoeffUP[-1] !=0:
+    print(derivCoeffUP[-1])
+elif derivExpListUP[-1]==1.0:
+    print(str(derivCoeffUP[i])+"x")
+elif derivCoeffUP[-1] !=0:
+    print(str(derivCoeffUP[-1])+ "x^" + str(derivExpListUP[-1]))
 
     
+##Printing the Integral function
+print("__________________________________________________________________________________________________")
+z=0
+print("Integral is; F(x) = ", end = "")
+for i in range(len(intCoeff)):
+    if intExpList[i]==1.0:
+        print(str(intCoeff[i])+"x" ,end=" + ")
+    elif intCoeff[i]!=0.0 and intExpList[i]!=0.0:
+        print(str(intCoeff[i])+"x^"+str(intExpList[i]) ,end=" + ")
+    elif intExpList[i]==0.0:
+        print(str(intCoeff[i])+ "ln(x)" ,end=" + ")
+print("C")
+
+
+
 ###Calculating values from the given function
 def f(x):
-    yVal =0
+    y =0
     for i in range(len(coeffList)):
-        yVal += float(coeffList[i])*(x**(float(powerList[i])))       
-    return yVal
+        y += float(coeffList[i])*(x**(float(powerList[i])))       
+    return y
 
 
+###Calculating values from the derivative function
+def deriv(x):
+    m =0
+    for i in range(len(derivCoeffUP)):
+        m += float(derivCoeffUP[i])*(x**(float(derivExpListUP[i])))       
+    return m
 
+
+###Calculating values from the integral function
+def integral(x):
+    a =0
+    for i in range(len(intCoeff)):
+        if intExpList[i]==0:
+            a += float(intCoeff[i])*(math.log(x,math.e)) 
+        else:
+            a += float(intCoeff[i])*(x**(float(intExpList[i])))       
+    return a
+    
+    
 ###while loop till the user is finished with the operations
-done = "0"
-while done != "1":
+done = " "
+while done != "":
     
     #Asking user for what calculator is to be used
-    print("-------------------------------------------------------------------------")
+    print("__________________________________________________________________________________________________")
     print("For Derivative Calculator enter \"2\":\nFor Definite Integral enter \"3\":")
     print("For a graph of the function enter \"4\": (Warning the program must be terminated for graphing to execute)")
-    print("To end the program enter \"0\":")
-
+    print("To end the program press \"Enter\" :")
     insertCal = input("")
-    if insertCal == "0":
+    
+    #To End Program
+    if insertCal == "":
         break
+    #Roots  
+    elif insertCal == "1": 
+        print("")
         
-        
-    ##Derivative Calculator
+    ##Slope Calculator
     elif insertCal == "2":
-        print("-------------------------------------------------------------------------")
+        print("__________________________________________________________________________________________________")
         x = float(input("Enter the x value:"))    
-        m = (f(x+1e-8)-f(x))/1e-8
-        print("-------------------------------------------------------------------------")
-        print("\nThe slope at the point (" + str(x) + "," +str(f(x)) +") is approximately " + str(round(m,4)))
+        m = deriv(x)
+        print("__________________________________________________________________________________________________")
+        print("\nThe slope at the point (" + str(x) + "," +str(f(x)) +") is " + str(Fraction(m)) + " or " + str(m))
     
     
     ##Definite Integral
     elif insertCal == "3":
         
-        #Asking user for interval and num of slices
-        print("-------------------------------------------------------------------------")
+        #Asking user for the interval
+        print("__________________________________________________________________________________________________")
         intervalInput = input("Enter an interval that f(x) is continuous to find the area: (seperated by a space)")
         intervalInt = intervalInput.split(" ")
         x1, x2 = float(intervalInt[0]), float(intervalInt[1])
-        step = float(input("Enter number of slices to calculate area: (higher number slices = higher accuracy)"))
         
-        #Calculation area using Riemann Summation
-        dx=(x2-x1)/step
-        xm,area=x1,0
-        while xm<=x2:
-            area += f(xm) * dx
-            xm += dx
-        print("-------------------------------------------------------------------------")
-        print(round(area,4))
+        #Using the integral function that was derived
+        area = integral(x2)-integral(x1)
+        
+        print("__________________________________________________________________________________________________")
+        print("The area on the interval [" + str(x1) + ","+ str(x2)+ "] is "+ str(Fraction(area)) + " or " + str(area))
         
         
     ##Graphing the function
     elif insertCal == "4":
 
         #Asking for a domain
-        print("-------------------------------------------------------------------------")
+        print("__________________________________________________________________________________________________")
         domain = input("Enter the interval to be graphed: (seperated by a space)")
         #Asking for what step to graph by
         step = float(input("Enter by what step is needed to be graphed:"))
+        print("__________________________________________________________________________________________________")
         domainS = domain.split(" ")
         x1, x2 = float(domainS[0]), float(domainS[1])
         xV, xVal= x1, []
@@ -104,15 +214,37 @@ while done != "1":
         while xV <= x2:
             xVal.append(xV)
             xV+=step
-        y = []
+        y,m,a = [],[],[]
         
         for i in xVal:
             y.append(f(i))
-        print("-------------------------------------------------------------------------")
-        pylab.title("Graph of the given function")
+            m.append(deriv(i))
+            a.append(integral(i))
+            
+        #Graphing f(x) 
+        pylab.subplot(2,2,1)
+        pylab.title("Given Function")
+        pylab.xlabel('x')
+        pylab.ylabel('y')
         pylab.plot(xVal,y)
         pylab.show
         
+        #Graphing f'(x) 
+        pylab.subplot(2,2,2)
+        pylab.title("Derivative Function")
+        pylab.xlabel('x')
+        pylab.ylabel('y')
+        pylab.plot(xVal,m)
+        pylab.show
+        
+        #Graphing F(x) 
+        pylab.subplot(2,2,3)
+        pylab.title("Integral Function")
+        pylab.xlabel('x')
+        pylab.ylabel('y')
+        pylab.plot(xVal,a)
+        pylab.show
+
         
     else:
         print("\nInvalid input, Enter a valid input")
@@ -120,4 +252,4 @@ while done != "1":
     
     
     #Asking if the user is finished:
-    done = input("\nIf you are finished with the program enter \"1\" if not enter any other key:")
+    done = input("\nIf you are finished with the program press \"Enter\" if not any other key:")
