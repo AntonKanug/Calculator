@@ -39,8 +39,8 @@ for i in range(len(y)):
         powerList.append("0")
     
     elif i==0 and len(x[i])==2 and len(x[i][0])!=0:
-            coeffList.append((x[i][0][0:]))
-            powerList.append(x[i][1][1:])
+        coeffList.append((x[i][0][0:]))
+        powerList.append(x[i][1][1:])
 
     elif i==0 and len(x[i])==2:
         coeffList.append("1")
@@ -50,7 +50,7 @@ for i in range(len(y)):
         coeffList.append((x[i][0][:-1]))
     
     elif len(x[i])==2 and i%2==0 and x[i][1]=="" and x[i][0]=="":
-        coeffList.append(1)
+        coeffList.append(x[i-1][0]+"1")
         powerList.append(1)
 
     elif len(x[i])==2 and i%2==0 and x[i][1]=="":
@@ -62,10 +62,10 @@ for i in range(len(y)):
         powerList.append(x[i][1][1:])
 
     elif len(x[i])==1 and i%2==0:
-        coeffList.append((x[i][0]))
+        coeffList.append(x[i-1][0]+(x[i][0]))
         powerList.append("0")
-        
-
+print(x)
+print(coeffList,powerList)
 #Finding the Derivative and Integral functions
 derivExpList , intExpList, derivCoeff, intCoeff = [], [], [], []
 for i in range(len(coeffList)):
