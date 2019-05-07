@@ -64,8 +64,7 @@ for i in range(len(y)):
     elif len(x[i])==1 and i%2==0:
         coeffList.append(x[i-1][0]+(x[i][0]))
         powerList.append("0")
-print(x)
-print(coeffList,powerList)
+        
 #Finding the Derivative and Integral functions
 derivExpList , intExpList, derivCoeff, intCoeff = [], [], [], []
 for i in range(len(coeffList)):
@@ -77,6 +76,8 @@ for i in range(len(coeffList)):
     else:
         intCoeff.append(float(coeffList[i])/float(intExpList[i]))
 
+        
+
 ##Printing the function
 print("__________________________________________________________________________________________________")
 print("Function is; f(x) = "+func)
@@ -85,10 +86,10 @@ print("_________________________________________________________________________
 #Removing the 0 coeff case
 derivCoeffUP,derivExpListUP=[], []
 for i in range(len(derivCoeff)):
-    if derivCoeff[i]!=0.0:
+    if derivCoeff[i]!=0:
         derivCoeffUP.append(derivCoeff[i])
         derivExpListUP.append(derivExpList[i])
-        
+
 print("First Deravitive is; f'(x) = ", end = "")
 z=0
 for i in range(len(derivCoeffUP)):
@@ -97,7 +98,7 @@ for i in range(len(derivCoeffUP)):
             print(str(derivCoeffUP[i])+"x" ,end=" + ")
         elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
             print(derivCoeffUP[i], end=" + ")
-        elif derivCoeff[i] !=0 and derivExpList[i] !=-1:
+        elif derivCoeffUP[i] !=0 and derivExpList[i] !=-1:
             print(str(derivCoeffUP[i])+"x^"+str(derivExpListUP[i]) ,end=" + ")
     z+=1
     
@@ -212,6 +213,7 @@ while done != "":
         while xV <= x2:
             xVal.append(xV)
             xV+=step
+            
         y,m,a = [],[],[]
         
         for i in xVal:
