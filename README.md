@@ -1,10 +1,10 @@
 # MathOps-Calculator
 
 # Polynomial-Calculator
-Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing
+Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing.
 
-# Polynomial-Calculator
-Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing
+# Differential-Equations
+Description: Calculator that finds solution using Euler's Method for Differential Equations.
 
 Graphics Install Guide:
 1. Download the graphics.py file
