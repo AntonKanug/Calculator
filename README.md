@@ -1,6 +1,10 @@
+# MathOps-Calculator
+
 # Polynomial-Calculator
 Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing
 
+# Polynomial-Calculator
+Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing
 
 Graphics Install Guide:
 1. Download the graphics.py file
