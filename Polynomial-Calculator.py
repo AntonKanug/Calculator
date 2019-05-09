@@ -210,7 +210,7 @@ while done != "":
         xV, xVal= x1, []
 
         #Graphing using pylab
-        while xV <= x2:
+        while xV <= x2+step:
             xVal.append(xV)
             xV+=step
             
@@ -226,7 +226,8 @@ while done != "":
         pylab.title("Given Function")
         pylab.xlabel('x')
         pylab.ylabel('y')
-        pylab.plot(xVal,y)
+        pylab.plot(xVal, y, color='blue')
+        pylab.grid()
         pylab.show
         
         #Graphing f'(x) 
@@ -234,7 +235,8 @@ while done != "":
         pylab.title("Derivative Function")
         pylab.xlabel('x')
         pylab.ylabel('y')
-        pylab.plot(xVal,m)
+        pylab.plot(xVal, m, color='green')
+        pylab.grid()
         pylab.show
         
         #Graphing F(x) 
@@ -242,9 +244,12 @@ while done != "":
         pylab.title("Integral Function")
         pylab.xlabel('x')
         pylab.ylabel('y')
-        pylab.plot(xVal,a)
+        pylab.plot(xVal, a, color='red')
+        pylab.grid()
         pylab.show
-
+        
+        #Dimensions of the graphs
+        pylab.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.5, wspace=0.35)
         
     else:
         print("\nInvalid input, Enter a valid input")
