@@ -4,7 +4,7 @@
 Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing.
 
 # Differential-Equations
-Description: Calculator that finds solution using Euler's Method for Linear ODE.
+Description: Calculator that finds solution using Euler's Method for first order ODE.
 
 # Graphics Install Guide:
 1. Download the graphics.py file
