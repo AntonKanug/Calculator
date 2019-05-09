@@ -121,7 +121,7 @@ for i in range(len(intCoeff)):
     elif intCoeff[i]!=0.0 and intExpList[i]!=0.0:
         print(str(intCoeff[i])+"x^"+str(intExpList[i]) ,end=" + ")
     elif intExpList[i]==0.0:
-        print(str(intCoeff[i])+ "ln(x)" ,end=" + ")
+        print(str(intCoeff[i])+ "ln|x|" ,end=" + ")
 print("C")
 
 
@@ -147,7 +147,7 @@ def integral(x):
     a =0
     for i in range(len(intCoeff)):
         if intExpList[i]==0:
-            a += float(intCoeff[i])*(math.log(x,math.e)) 
+            a += float(intCoeff[i])*(math.log(abs(x),math.e)) 
         else:
             a += float(intCoeff[i])*(x**(float(intExpList[i])))       
     return a
