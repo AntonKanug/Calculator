@@ -43,3 +43,4 @@ pylab.title("Solution for dy/dx = " + funcInsert)
 pylab.xlabel('x')
 pylab.ylabel('y')
 pylab.show()
+
