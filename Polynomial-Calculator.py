@@ -8,7 +8,7 @@ Calculator for ploynomials, Overview:
 '''
 
 import pylab
-import math
+from math import *
 from fractions import Fraction
 ###Getting the function from user 
     
@@ -147,7 +147,7 @@ def integral(x):
     a =0
     for i in range(len(intCoeff)):
         if intExpList[i]==0:
-            a += float(intCoeff[i])*(math.log(abs(x),math.e)) 
+            a += float(intCoeff[i])*(log(abs(x),e)) 
         else:
             a += float(intCoeff[i])*(x**(float(intExpList[i])))       
     return a
@@ -159,20 +159,17 @@ while done != "":
     
     #Asking user for what calculator is to be used
     print("__________________________________________________________________________________________________")
-    print("For Derivative Calculator enter \"2\":\nFor Definite Integral enter \"3\":")
-    print("For a graph of the function enter \"4\": (Warning the program must be terminated for graphing to execute)")
+    print("For Derivative Calculator enter \"1\":\nFor Definite Integral enter \"2\":")
+    print("For a graph of the function enter \"3\": (Warning the program must be terminated for graphing to execute)")
     print("To end the program press \"Enter\" :")
     insertCal = input("")
     
     #To End Program
     if insertCal == "":
         break
-    #Roots  
-    elif insertCal == "1": 
-        print("")
         
     ##Slope Calculator
-    elif insertCal == "2":
+    elif insertCal == "1":
         print("__________________________________________________________________________________________________")
         x = float(input("Enter the x value:"))    
         m = deriv(x)
@@ -181,7 +178,7 @@ while done != "":
     
     
     ##Definite Integral
-    elif insertCal == "3":
+    elif insertCal == "2":
         
         #Asking user for the interval
         print("__________________________________________________________________________________________________")
@@ -197,7 +194,7 @@ while done != "":
         
         
     ##Graphing the function
-    elif insertCal == "4":
+    elif insertCal == "3":
 
         #Asking for a domain
         print("__________________________________________________________________________________________________")
