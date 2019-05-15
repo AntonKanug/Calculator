@@ -48,6 +48,6 @@ print("Solution Table: (x, y)")
 print("")
 for i in range(len(x)):
     print("    "+str(round(x[i],3))+ "     "+str(round(y[i],3)))
-    
 
+#Outping the graph
 pylab.show()
