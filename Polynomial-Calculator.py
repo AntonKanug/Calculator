@@ -253,5 +253,6 @@ while done != "":
     
     #Asking if the user is finished:
     done = input("\nIf you are finished with the program press \"Enter\" if not any other key:")
-    
+   
+#Outping the graph
 pylab.show()
