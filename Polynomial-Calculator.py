@@ -225,7 +225,6 @@ while done != "":
         pylab.ylabel('y')
         pylab.plot(xVal, y, color='blue')
         pylab.grid()
-        pylab.show
         
         #Graphing f'(x) 
         pylab.subplot(2,2,2)
@@ -234,7 +233,6 @@ while done != "":
         pylab.ylabel('y')
         pylab.plot(xVal, m, color='green')
         pylab.grid()
-        pylab.show
         
         #Graphing F(x) 
         pylab.subplot(2,2,3)
@@ -243,8 +241,8 @@ while done != "":
         pylab.ylabel('y')
         pylab.plot(xVal, a, color='red')
         pylab.grid()
-        pylab.show
-        
+     
+      
         #Dimensions of the graphs
         pylab.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.5, wspace=0.35)
         
@@ -255,3 +253,5 @@ while done != "":
     
     #Asking if the user is finished:
     done = input("\nIf you are finished with the program press \"Enter\" if not any other key:")
+    
+pylab.show()
