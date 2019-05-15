@@ -42,4 +42,12 @@ pylab.title("Solution for dy/dx = " + funcInsert)
 pylab.xlabel('x')
 pylab.ylabel('y')
 pylab.grid()
+
+#Printing Numerical Solutions
+print("Solution Table: (x, y)")
+print("")
+for i in range(len(x)):
+    print("    "+str(round(x[i],3))+ "     "+str(round(y[i],3)))
+    
+
 pylab.show()
