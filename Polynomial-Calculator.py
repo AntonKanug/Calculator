@@ -81,6 +81,7 @@ for i in range(len(coeffList)):
 ##Printing the function
 print("__________________________________________________________________________________________________")
 print("Function is; f(x) = "+func)
+
 ##Printing the Derivative function
 print("__________________________________________________________________________________________________")
 #Removing the 0 coeff case
@@ -95,20 +96,20 @@ z=0
 for i in range(len(derivCoeffUP)):
     if z < len(derivCoeffUP)-1:
         if derivExpListUP[i]==1.0:
-            print(str(derivCoeffUP[i])+"x" ,end=" + ")
+            print(str(round(derivCoeffUP[i],3))+"x" ,end=" + ")
         elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
-            print(derivCoeffUP[i], end=" + ")
+            print(round(derivCoeffUP[i],3), end=" + ")
         elif derivCoeffUP[i] !=0 and derivExpList[i] !=-1:
-            print(str(derivCoeffUP[i])+"x^"+str(derivExpListUP[i]) ,end=" + ")
+            print(str(round(derivCoeffUP[i],3))+"x^"+str(derivExpListUP[i]) ,end=" + ")
     z+=1
     
 #Printing the last part of the polynomial to avoid "+" at the end
 if derivExpListUP[-1]==0 and derivCoeffUP[-1] !=0:
-    print(derivCoeffUP[-1])
+    print(round(derivCoeffUP[-1],3))
 elif derivExpListUP[-1]==1.0:
-    print(str(derivCoeffUP[i])+"x")
+    print(str(round(derivCoeffUP[i],3))+"x")
 elif derivCoeffUP[-1] !=0:
-    print(str(derivCoeffUP[-1])+ "x^" + str(derivExpListUP[-1]))
+    print(str(round(derivCoeffUP[-1],3))+ "x^" + str(derivExpListUP[-1]))
 
     
 ##Printing the Integral function
@@ -117,11 +118,11 @@ z=0
 print("Integral is; F(x) = ", end = "")
 for i in range(len(intCoeff)):
     if intExpList[i]==1.0:
-        print(str(intCoeff[i])+"x" ,end=" + ")
+        print(str(round(intCoeff[i],3))+"x" ,end=" + ")
     elif intCoeff[i]!=0.0 and intExpList[i]!=0.0:
-        print(str(intCoeff[i])+"x^"+str(intExpList[i]) ,end=" + ")
+        print(str(round(intCoeff[i],3))+"x^"+str(intExpList[i]) ,end=" + ")
     elif intExpList[i]==0.0:
-        print(str(intCoeff[i])+ "ln|x|" ,end=" + ")
+        print(str(round(intCoeff[i],3))+ "ln|x|" ,end=" + ")
 print("C")
 
 
@@ -155,7 +156,7 @@ def integral(x):
     
 ###while loop till the user is finished with the operations
 done = " "
-while done != "":
+for i in range(1):
     
     #Asking user for what calculator is to be used
     print("__________________________________________________________________________________________________")
@@ -226,6 +227,7 @@ while done != "":
         pylab.plot(xVal, y, color='blue')
         pylab.grid()
         
+        
         #Graphing f'(x) 
         pylab.subplot(2,2,2)
         pylab.title("Derivative Function")
@@ -234,6 +236,7 @@ while done != "":
         pylab.plot(xVal, m, color='green')
         pylab.grid()
         
+        
         #Graphing F(x) 
         pylab.subplot(2,2,3)
         pylab.title("Integral Function")
@@ -241,8 +244,8 @@ while done != "":
         pylab.ylabel('y')
         pylab.plot(xVal, a, color='red')
         pylab.grid()
-     
-      
+        
+        
         #Dimensions of the graphs
         pylab.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.5, wspace=0.35)
         
@@ -253,6 +256,5 @@ while done != "":
     
     #Asking if the user is finished:
     done = input("\nIf you are finished with the program press \"Enter\" if not any other key:")
-   
-#Outping the graph
+
 pylab.show()
