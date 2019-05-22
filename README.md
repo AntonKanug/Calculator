@@ -1,4 +1,7 @@
+
 # MathOps-Calculator
+# Polynomial-Calculator
+Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing though an app using Tkinter
 
 # Polynomial-Calculator
 Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing.
