@@ -235,4 +235,5 @@ labelDeriv.place(relwidth=1, relheight=1)
 
 labelInteg = tk.Label(frameInteg)
 labelInteg.place(relwidth=1, relheight=1)
+
 root.mainloop()
