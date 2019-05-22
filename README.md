@@ -3,7 +3,7 @@
 # Polynomial-Calculator
 Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing though an app using Tkinter
 
-# Polynomial-Calculator
+# Polynomial-Calculator-App
 Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing.
 
 # Differential-Equations
