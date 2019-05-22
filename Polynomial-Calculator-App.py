@@ -15,8 +15,7 @@ import tkinter as tk
 from math import *
 from fractions import Fraction
 
-HEIGHT = 500
-WIDTH = 600
+H, W = 500, 600
 
 def calculator(func):
 	try:	
@@ -208,7 +207,7 @@ def calculator(func):
 #TKinter GUI
 root = tk.Tk()
 root.title("MathOps Calculator by Anton K (2019)")
-canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
+canvas = tk.Canvas(root, height=H, width=W)
 canvas.pack()
 
 backImg = tk.PhotoImage(file='./mathops.png')
