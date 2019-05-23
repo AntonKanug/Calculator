@@ -48,7 +48,11 @@ for i in range(len(y)):
 
     elif i==0 and len(x[i])==1:
         coeffList.append((x[i][0][:-1]))
-    
+
+    elif len(x[i])==2 and i%2==0 and x[i][0]=="":
+        coeffList.append(x[i-1][0]+"1")
+        powerList.append(x[i][1][1:])
+
     elif len(x[i])==2 and i%2==0 and x[i][1]=="" and x[i][0]=="":
         coeffList.append(x[i-1][0]+"1")
         powerList.append(1)
@@ -64,7 +68,7 @@ for i in range(len(y)):
     elif len(x[i])==1 and i%2==0:
         coeffList.append(x[i-1][0]+(x[i][0]))
         powerList.append("0")
-        
+ 
 #Finding the Derivative and Integral functions
 derivExpList , intExpList, derivCoeff, intCoeff = [], [], [], []
 for i in range(len(coeffList)):
@@ -76,7 +80,7 @@ for i in range(len(coeffList)):
     else:
         intCoeff.append(float(coeffList[i])/float(intExpList[i]))
 
-        
+
 
 ##Printing the function
 print("__________________________________________________________________________________________________")
@@ -90,26 +94,31 @@ for i in range(len(derivCoeff)):
     if derivCoeff[i]!=0:
         derivCoeffUP.append(derivCoeff[i])
         derivExpListUP.append(derivExpList[i])
-
+print(derivCoeffUP,derivExpListUP)
 print("First Deravitive is; f'(x) = ", end = "")
-z=0
-for i in range(len(derivCoeffUP)):
-    if z < len(derivCoeffUP)-1:
-        if derivExpListUP[i]==1.0:
-            print(str(round(derivCoeffUP[i],3))+"x" ,end=" + ")
-        elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
-            print(round(derivCoeffUP[i],3), end=" + ")
-        elif derivCoeffUP[i] !=0 and derivExpList[i] !=-1:
-            print(str(round(derivCoeffUP[i],3))+"x^"+str(derivExpListUP[i]) ,end=" + ")
-    z+=1
-    
-#Printing the last part of the polynomial to avoid "+" at the end
-if derivExpListUP[-1]==0 and derivCoeffUP[-1] !=0:
-    print(round(derivCoeffUP[-1],3))
-elif derivExpListUP[-1]==1.0:
-    print(str(round(derivCoeffUP[i],3))+"x")
-elif derivCoeffUP[-1] !=0:
-    print(str(round(derivCoeffUP[-1],3))+ "x^" + str(derivExpListUP[-1]))
+if len(derivCoeffUP)==0 and len(derivExpListUP)==0:
+    print("0")
+else:
+    z=0
+    for i in range(len(derivCoeffUP)):
+        if z < len(derivCoeffUP)-1:
+            if str(derivCoeffUP[i])=="":
+                print("0",end=" + ")
+            elif derivExpListUP[i]==1.0:
+                print(str(round(derivCoeffUP[i],3))+"x" ,end=" + ")
+            elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
+                print(round(derivCoeffUP[i],3), end=" + ")
+            elif derivCoeffUP[i] !=0 and derivExpList[i] !=-1:
+                print(str(round(derivCoeffUP[i],3))+"x^"+str(derivExpListUP[i]) ,end=" + ")
+        z+=1
+
+    #Printing the last part of the polynomial to avoid "+" at the end
+    if derivExpListUP[-1]==0 and derivCoeffUP[-1] !=0:
+        print(round(derivCoeffUP[-1],3))
+    elif derivExpListUP[-1]==1.0:
+        print(str(round(derivCoeffUP[i],3))+"x")
+    elif derivCoeffUP[-1] !=0:
+        print(str(round(derivCoeffUP[-1],3))+ "x^" + str(derivExpListUP[-1]))
 
     
 ##Printing the Integral function
