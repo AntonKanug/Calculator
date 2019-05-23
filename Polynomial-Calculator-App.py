@@ -195,7 +195,7 @@ def calculator(func,x1,x2):
 			pylab.ylabel('y')
 			pylab.plot(xVal, a, color='red')
 			pylab.grid()
-			pylab.show() 
+			 
 	except:
 		deriv,integ = "Invalid Expression","Invalid Expression"
         
@@ -203,15 +203,22 @@ def calculator(func,x1,x2):
     #Dimensions of the graphs
 	pylab.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.5, wspace=0.35)
 
+	#Outputting Derivative and Integral
 	labelDeriv['text'] = deriv
 	labelInteg['text'] = integ
 
+	#Showing the graphs in a new window
+	if x1!= 0 and x2!=0:
+		pylab.show()	
 
 #TKinter GUI
 root = tk.Tk()
-root.title("MathOps Calculator By Anton K. (2019)")
+root.title("MathOps Calculator (2019)")
 canvas = tk.Canvas(root, height=H, width=W,bg="black",bd=0)
 canvas.pack()
+
+icon = tk.PhotoImage(file='icon.gif')
+root.tk.call('wm', 'iconphoto', root._w, icon)
 
 #Background
 backImg = tk.PhotoImage(file='mathops.png')
@@ -254,7 +261,7 @@ x2.bind("<Return>", (lambda event: calculator(func.get(),float(x1.get()),float(x
 if x1.get()=="" and x2.get()=="":
     button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),0,0))
 else:
-		button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),float(x1.get()),float(x2.get())))
+	button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),float(x1.get()),float(x2.get())))
 button.place(relheight=1, relwidth=1)
 
 #Results
