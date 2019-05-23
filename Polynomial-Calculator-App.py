@@ -1,6 +1,6 @@
 '''
 Anton Kanugalwattage
-May 4, 2019
+May 18, 2019
 Calculator for ploynomials, Overview:
 - Derivative, Slope at a point
 - Integral, Definite Integral
@@ -15,9 +15,9 @@ import tkinter as tk
 from math import *
 from fractions import Fraction
 
-H, W = 500, 600
+H, W = 494, 594
 
-def calculator(func):
+def calculator(func,x1,x2):
 	try:	
 		#Taking the function and creating a list of coeff and exponents
 		funcS = func.split(" ")
@@ -53,13 +53,13 @@ def calculator(func):
 			elif i==0 and len(x[i])==1:
 				coeffList.append((x[i][0][:-1]))
 
-			elif len(x[i])==2 and i%2==0 and x[i][0]=="":
-				coeffList.append(x[i-1][0]+"1")
-				powerList.append(x[i][1][1:])
-		
 			elif len(x[i])==2 and i%2==0 and x[i][1]=="" and x[i][0]=="":
 				coeffList.append(x[i-1][0]+"1")
 				powerList.append(1)
+
+			elif len(x[i])==2 and i%2==0 and x[i][0]=="":
+				coeffList.append(x[i-1][0]+"1")
+				powerList.append(x[i][1][1:])
 
 			elif len(x[i])==2 and i%2==0 and x[i][1]=="":
 				coeffList.append(x[i-1][0]+(x[i][0]))
@@ -92,30 +92,34 @@ def calculator(func):
 			if derivCoeff[i]!=0:
 				derivCoeffUP.append(derivCoeff[i])
 				derivExpListUP.append(derivExpList[i])
-		
-		z=0
-		deriv = ""
-		for i in range(len(derivCoeffUP)):
-			if z < len(derivCoeffUP)-1:
-				if derivExpListUP[i]==1.0:
-					deriv += str(round(derivCoeffUP[i],3))+"x + " 
-				elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
-					deriv += str(round(derivCoeffUP[i],3)) + " + "
-				elif derivCoeffUP[i] !=0 and derivExpList[i] !=-1:
-					deriv += str(round(derivCoeffUP[i],3))+"x^"+str(derivExpListUP[i]) + " + "
-			z+=1
+		if len(derivCoeffUP)==0 and len(derivExpListUP)==0:
+			deriv = "0"
+		else:
+			z=0
+			deriv = "f'(x) = "
+			for i in range(len(derivCoeffUP)):
+				if z < len(derivCoeffUP)-1:
+					if derivExpListUP[i]==1.0:
+						deriv += str(round(derivCoeffUP[i],3))+"x + " 
+					elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
+						deriv += str(round(derivCoeffUP[i],3)) + " + "
+					elif derivCoeffUP[i] !=0 and derivExpList[i] !=-1:
+						deriv += str(round(derivCoeffUP[i],3))+"x^"+str(derivExpListUP[i]) + " + "
+				z+=1
 
-		#Printing the last part of the derivative to avoid "+" at the end
-		if derivExpListUP[-1]==0 and derivCoeffUP[-1] !=0:
-			deriv += str((round(derivCoeffUP[-1],3)))
-		elif derivExpListUP[-1]==1.0:
-			deriv += (str(round(derivCoeffUP[i],3))+"x")
-		elif derivCoeffUP[-1] !=0:
-			deriv += (str(round(derivCoeffUP[-1],3))+ "x^" + str(derivExpListUP[-1]))
+			#Printing the last part of the derivative to avoid "+" at the end
+			if derivCoeffUP[-1] ==0:
+				deriv += "0"
+			elif derivExpListUP[-1]==0 and derivCoeffUP[-1] !=0:
+				deriv += str((round(derivCoeffUP[-1],3)))
+			elif derivExpListUP[-1]==1.0:
+				deriv += (str(round(derivCoeffUP[i],3))+"x")
+			elif derivCoeffUP[-1] !=0:
+				deriv += (str(round(derivCoeffUP[-1],3))+ "x^" + str(derivExpListUP[-1]))
 
 
 		##Printing the Integral function
-		integ,z='',0
+		integ,z='F(x) = ',0
 		print("Integral is; F(x) = ", end = "")
 		for i in range(len(intCoeff)):
 			if intExpList[i]==1.0:
@@ -152,83 +156,113 @@ def calculator(func):
 				else:
 					a += float(intCoeff[i])*(x**(float(intExpList[i])))       
 			return a
+		if x1!=0 and x2!=0:
+			step=0.1
+			xV, xVal= x1, []
+			while xV <= x2+step:
+				xVal.append(xV)
+				xV+=step
+			y,m,a=[],[],[]
 
-		x1 ,x2 = 0.1 ,15.0
-		step=0.1
-		xV, xVal= x1, []
-		while xV <= x2+step:
-			xVal.append(xV)
-			xV+=step
-		y,m,a=[],[],[]
+			for i in xVal:
+				y.append(f(i))
+				m.append(derivative(i))
+				a.append(integral(i))
 
-		for i in xVal:
-			y.append(f(i))
-			m.append(derivative(i))
-			a.append(integral(i))
-
-		
-		#Graphing f(x) 
-		pylab.subplot(2,2,1)
-		pylab.title("Given Function")
-		pylab.xlabel('x')
-		pylab.ylabel('y') 
-		pylab.plot(xVal, y, color='blue')
-		pylab.grid()
 			
-			
-		#Graphing f'(x) 
-		pylab.subplot(2,2,2)
-		pylab.title("Derivative Function")
-		pylab.xlabel('x')
-		pylab.ylabel('y')
-		pylab.plot(xVal, m, color='green')
-		pylab.grid()
-			
-			
-		#Graphing F(x) 
-		pylab.subplot(2,2,3)
-		pylab.title("Integral Function")
-		pylab.xlabel('x')
-		pylab.ylabel('y')
-		pylab.plot(xVal, a, color='red')
-		pylab.grid()
-		
+			#Graphing f(x) 
+			pylab.subplot(2,2,1)
+			pylab.title("Given Function")
+			pylab.xlabel('x')
+			pylab.ylabel('y') 
+			pylab.plot(xVal, y, color='blue')
+			pylab.grid()
+				
+				
+			#Graphing f'(x) 
+			pylab.subplot(2,2,2)
+			pylab.title("Derivative Function")
+			pylab.xlabel('x')
+			pylab.ylabel('y')
+			pylab.plot(xVal, m, color='green')
+			pylab.grid()
+				
+				
+			#Graphing F(x) 
+			pylab.subplot(2,2,3)
+			pylab.title("Integral Function")
+			pylab.xlabel('x')
+			pylab.ylabel('y')
+			pylab.plot(xVal, a, color='red')
+			pylab.grid()
+			pylab.show() 
 	except:
 		deriv,integ = "Invalid Expression","Invalid Expression"
         
-        
+
     #Dimensions of the graphs
 	pylab.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.5, wspace=0.35)
 
 	labelDeriv['text'] = deriv
 	labelInteg['text'] = integ
-	pylab.show()    
+
 
 #TKinter GUI
 root = tk.Tk()
-root.title("MathOps Calculator by Anton K (2019)")
-canvas = tk.Canvas(root, height=H, width=W)
+root.title("MathOps Calculator By Anton K. (2019)")
+canvas = tk.Canvas(root, height=H, width=W,bg="black",bd=0)
 canvas.pack()
 
-backImg = tk.PhotoImage(file='./mathops.png')
+#Background
+backImg = tk.PhotoImage(file='mathops.png')
 backLbl = tk.Label(root, image=backImg)
 backLbl.place(relwidth=1, relheight=1)
 
-frame = tk.Frame(root, bg='#9b9da0', bd=5)
-frame.place(relx=0.5, rely=0.1, relwidth=0.75, relheight=0.1, anchor='n')
 
-entry = tk.Entry(frame, font=70)
-entry.place(relwidth=0.68, relheight=1)
-entry.bind("<Return>", (lambda event: calculator(entry.get())))
+#Top Frame
+frame = tk.Frame(root, bg='#CDCDCD', bd=5)
+frame.place(relx=0.5, rely=0.08, relwidth=0.75, relheight=0.1, anchor='n')
 
-button = tk.Button(frame, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(entry.get()))
-button.place(relx=0.7, relheight=1, relwidth=0.3)
+#Frame for Button
+frame2 = tk.Frame(root, bg='#CDCDCD', bd=5)
+frame2.place(relx=0.5, rely=0.20, relwidth=0.3, relheight=0.075, anchor='n')
 
-frameDeriv = tk.Frame(root, bg='#9b9da0', bd=10)
-frameDeriv.place(relx=0.5, rely=0.25, relwidth=0.75, relheight=0.3, anchor='n')
+#Entry for function
+func = tk.Entry(frame, font=70)
+func.place(relwidth=0.68, relheight=1)
+func.bind("<Return>", (lambda event: calculator(func.get(),0,0)))
 
-frameInteg = tk.Frame(root, bg='#9b9da0', bd=10)
-frameInteg.place(relx=0.5, rely=0.575, relwidth=0.75, relheight=0.3, anchor='n')
+#Text for interval
+text = tk.Label(frame,font=(60),text = "on [",bg='#CDCDCD')
+text.place(relx=0.68,rely=0.21)
+
+text2 = tk.Label(frame,font=(60),text = ",",bg='#CDCDCD')
+text2.place(relx=0.85,rely=0.21)
+
+text3 = tk.Label(frame,font=(60),text = "]",bg='#CDCDCD')
+text3.place(relx=0.98,rely=0.21)
+
+#Interval (x1,x2)
+x1 = tk.Entry(frame, font=70)
+x1.place(relx=0.76,rely =0.16,relwidth=0.08, relheight=0.75)
+
+x2 = tk.Entry(frame, font=70)
+x2.place(relx=0.89,rely =0.16,relwidth=0.08, relheight=0.75)
+x2.bind("<Return>", (lambda event: calculator(func.get(),float(x1.get()),float(x2.get()))))
+
+#Calculate Button
+if x1.get()=="" and x2.get()=="":
+    button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),0,0))
+else:
+		button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),float(x1.get()),float(x2.get())))
+button.place(relheight=1, relwidth=1)
+
+#Results
+frameDeriv = tk.Frame(root, bg='#CDCDCD', bd=3)
+frameDeriv.place(relx=0.5, rely=0.35, relwidth=0.75, relheight=0.25, anchor='n')
+
+frameInteg = tk.Frame(root, bg='#CDCDCD', bd=3)
+frameInteg.place(relx=0.5, rely=0.65, relwidth=0.75, relheight=0.25, anchor='n')
 
 labelDeriv = tk.Label(frameDeriv)
 labelDeriv.place(relwidth=1, relheight=1)
@@ -236,4 +270,11 @@ labelDeriv.place(relwidth=1, relheight=1)
 labelInteg = tk.Label(frameInteg)
 labelInteg.place(relwidth=1, relheight=1)
 
+derivT = tk.Label(frameDeriv,font=(60),text = "Derivative Function:")
+derivT.place(relx=0.37,rely=0.2)
+
+integT = tk.Label(frameInteg,font=(60),text = "Integral Function:")
+integT.place(relx=0.37,rely=0.2)
+
+#Main Loop 
 root.mainloop()
