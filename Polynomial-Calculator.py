@@ -7,7 +7,7 @@ Calculator for ploynomials, Overview:
 - Graphing
 '''
 
-import pylab
+from matplotlib import pyplot as pylab
 from math import *
 from fractions import Fraction
 ###Getting the function from user 
