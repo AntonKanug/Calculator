@@ -4,7 +4,7 @@ May 9, 2019
 Finding solutions using Euler's Method for Differential Equations
 '''
 
-import pylab
+from matplotlib import pyplot as pylab
 from math import *
     
 #Getting the function and information from user 
