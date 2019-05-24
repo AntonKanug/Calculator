@@ -7,13 +7,17 @@ Calculator for ploynomials, Overview:
 - Graphing
 '''
 
+
 import matplotlib
 matplotlib.use("TKAgg")
-print(matplotlib.get_backend())
 from matplotlib import pyplot as pylab
 import tkinter as tk
 from math import *
 from fractions import Fraction
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+    	return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 H, W = 494, 594
 
@@ -99,36 +103,42 @@ def calculator(func,x1,x2):
 			deriv = "f'(x) = "
 			for i in range(len(derivCoeffUP)):
 				if z < len(derivCoeffUP)-1:
-					if derivExpListUP[i]==1.0:
+					if derivCoeffUP[i]==1:
+						deriv+="x^"+str(round(derivExpListUP[i],3)) + " + "
+					elif derivExpListUP[i]==1.0:
 						deriv += str(round(derivCoeffUP[i],3))+"x + " 
 					elif derivExpListUP[i]==0 and derivCoeffUP[i] !=0 and derivExpListUP[i]!=-1:
 						deriv += str(round(derivCoeffUP[i],3)) + " + "
 					elif derivCoeffUP[i] !=0 and derivExpList[i] !=-1:
-						deriv += str(round(derivCoeffUP[i],3))+"x^"+str(derivExpListUP[i]) + " + "
+						deriv += str(round(derivCoeffUP[i],3))+"x^"+str(round(derivExpListUP[i],3)) + " + "
 				z+=1
 
 			#Printing the last part of the derivative to avoid "+" at the end
 			if derivCoeffUP[-1] ==0:
 				deriv += "0"
+			elif derivCoeffUP[-1]==1:
+				deriv+="x^"+str(round(derivExpListUP[-1],3))
 			elif derivExpListUP[-1]==0 and derivCoeffUP[-1] !=0:
 				deriv += str((round(derivCoeffUP[-1],3)))
 			elif derivExpListUP[-1]==1.0:
 				deriv += (str(round(derivCoeffUP[i],3))+"x")
 			elif derivCoeffUP[-1] !=0:
-				deriv += (str(round(derivCoeffUP[-1],3))+ "x^" + str(derivExpListUP[-1]))
+				deriv += str(round(derivCoeffUP[-1],3))+ "x^" + str(round(derivExpListUP[-1],3))
 
 
 		##Printing the Integral function
 		integ,z='F(x) = ',0
 		print("Integral is; F(x) = ", end = "")
 		for i in range(len(intCoeff)):
-			if intExpList[i]==1.0:
-				integ+=(str(round(intCoeff[i],3))+"x" + " + ")
+			if intCoeff[i]==1 and intExpList[i]!=0:
+				integ+="x^"+str(round(intExpList[i],3)) + " + "
+			elif intExpList[i]==1.0:
+				integ+=str(round(intCoeff[i],3))+"x" + " + "
 			elif intCoeff[i]!=0.0 and intExpList[i]!=0.0:
-				integ+=(str(round(intCoeff[i],3))+"x^"+str(intExpList[i]) + " + ")
+				integ+=str(round(intCoeff[i],3))+"x^"+str(round(intExpList[i],3)) + " + "
 			elif intExpList[i]==0.0:
-				integ+=(str(round(intCoeff[i],3))+ "ln|x|" + " + ")
-		integ+=("C")
+				integ+=str(round(intCoeff[i],3))+ "ln|x|" + " + "
+		integ+="C"
 
 
 		###Calculating values from the given function
@@ -211,7 +221,7 @@ def calculator(func,x1,x2):
 	if x1!= 0 and x2!=0:
 		pylab.show()	
 
-#TKinter GUI
+###TKinter GUI
 root = tk.Tk()
 root.title("MathOps Calculator (2019)")
 canvas = tk.Canvas(root, height=H, width=W,bg="black",bd=0)
