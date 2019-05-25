@@ -5,6 +5,7 @@ Calculator for ploynomials, Overview:
 - Derivative, Slope at a point
 - Integral, Definite Integral
 - Graphing
+Demo: https://youtu.be/qyUpNjB71sk
 '''
 
 
@@ -128,7 +129,7 @@ def calculator(func,x1,x2):
 
 		##Printing the Integral function
 		integ,z='F(x) = ',0
-		print("Integral is; F(x) = ", end = "")
+
 		for i in range(len(intCoeff)):
 			if intCoeff[i]==1 and intExpList[i]!=0:
 				integ+="x^"+str(round(intExpList[i],3)) + " + "
@@ -166,7 +167,8 @@ def calculator(func,x1,x2):
 				else:
 					a += float(intCoeff[i])*(x**(float(intExpList[i])))       
 			return a
-		if x1!=0 and x2!=0:
+		if x1!="" and x2!="":
+			x1,x2 = float(x1),float(x2)
 			step=0.1
 			xV, xVal= x1, []
 			while xV <= x2+step:
@@ -179,10 +181,12 @@ def calculator(func,x1,x2):
 				m.append(derivative(i))
 				a.append(integral(i))
 
-			
+			#Title of the tab
+			pylab.figure(num='Graphs - MathOps Calculator (2019)')
+
 			#Graphing f(x) 
 			pylab.subplot(2,2,1)
-			pylab.title("Given Function")
+			pylab.title("Given Function, f(x)")
 			pylab.xlabel('x')
 			pylab.ylabel('y') 
 			pylab.plot(xVal, y, color='blue')
@@ -191,7 +195,7 @@ def calculator(func,x1,x2):
 				
 			#Graphing f'(x) 
 			pylab.subplot(2,2,2)
-			pylab.title("Derivative Function")
+			pylab.title("Derivative Function, f'(x)")
 			pylab.xlabel('x')
 			pylab.ylabel('y')
 			pylab.plot(xVal, m, color='green')
@@ -200,25 +204,26 @@ def calculator(func,x1,x2):
 				
 			#Graphing F(x) 
 			pylab.subplot(2,2,3)
-			pylab.title("Integral Function")
+			pylab.title("Integral Function, F(x)")
 			pylab.xlabel('x')
 			pylab.ylabel('y')
 			pylab.plot(xVal, a, color='red')
 			pylab.grid()
-			 
+			
+			#Dimensions of the graphs
+			pylab.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.5, wspace=0.35)
+
+	#Invalid Expressions
 	except:
 		deriv,integ = "Invalid Expression","Invalid Expression"
         
-
-    #Dimensions of the graphs
-	pylab.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.5, wspace=0.35)
 
 	#Outputting Derivative and Integral
 	labelDeriv['text'] = deriv
 	labelInteg['text'] = integ
 
 	#Showing the graphs in a new window
-	if x1!= 0 and x2!=0:
+	if x1!="" and x2!="":
 		pylab.show()	
 
 ###TKinter GUI
@@ -241,13 +246,13 @@ frame = tk.Frame(root, bg='#CDCDCD', bd=5)
 frame.place(relx=0.5, rely=0.08, relwidth=0.75, relheight=0.1, anchor='n')
 
 #Frame for Button
-frame2 = tk.Frame(root, bg='#CDCDCD', bd=5)
+frame2 = tk.Frame(root, bg='#CDCDCD', bd=2)
 frame2.place(relx=0.5, rely=0.20, relwidth=0.3, relheight=0.075, anchor='n')
 
 #Entry for function
 func = tk.Entry(frame, font=70)
 func.place(relwidth=0.68, relheight=1)
-func.bind("<Return>", (lambda event: calculator(func.get(),0,0)))
+func.bind("<Return>", (lambda event: calculator(func.get(),"","")))
 
 #Text for interval
 text = tk.Label(frame,font=(60),text = "on [",bg='#CDCDCD')
@@ -268,13 +273,10 @@ x2.place(relx=0.89,rely =0.16,relwidth=0.08, relheight=0.75)
 x2.bind("<Return>", (lambda event: calculator(func.get(),float(x1.get()),float(x2.get()))))
 
 #Calculate Button
-if x1.get()=="" and x2.get()=="":
-    button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),0,0))
-else:
-	button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),float(x1.get()),float(x2.get())))
+button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),x1.get(),x2.get()))
 button.place(relheight=1, relwidth=1)
 
-#Results
+#Outputting the results
 frameDeriv = tk.Frame(root, bg='#CDCDCD', bd=3)
 frameDeriv.place(relx=0.5, rely=0.35, relwidth=0.75, relheight=0.25, anchor='n')
 
