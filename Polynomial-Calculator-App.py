@@ -15,10 +15,7 @@ from matplotlib import pyplot as pylab
 import tkinter as tk
 from math import *
 from fractions import Fraction
-def resource_path(relative_path):
-    if hasattr(sys, '_MEIPASS'):
-    	return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
+
 
 H, W = 494, 594
 
@@ -167,6 +164,8 @@ def calculator(func,x1,x2):
 				else:
 					a += float(intCoeff[i])*(x**(float(intExpList[i])))       
 			return a
+
+		###Graphing	
 		if x1!="" and x2!="":
 			x1,x2 = float(x1),float(x2)
 			step=0.1
@@ -246,13 +245,16 @@ frame = tk.Frame(root, bg='#CDCDCD', bd=5)
 frame.place(relx=0.5, rely=0.08, relwidth=0.75, relheight=0.1, anchor='n')
 
 #Frame for Button
-frame2 = tk.Frame(root, bg='#CDCDCD', bd=2)
+frame2 = tk.Frame(root, bg='#CDCDCD', bd=3)
 frame2.place(relx=0.5, rely=0.20, relwidth=0.3, relheight=0.075, anchor='n')
 
 #Entry for function
 func = tk.Entry(frame, font=70)
-func.place(relwidth=0.68, relheight=1)
-func.bind("<Return>", (lambda event: calculator(func.get(),"","")))
+func.place(relx = 0.1,relwidth=0.572, relheight=1)
+
+#Text for f(x)
+text = tk.Label(frame,font=(60),text = "f(x) =",bg='#CDCDCD')
+text.place(relx=0,rely=0.21)
 
 #Text for interval
 text = tk.Label(frame,font=(60),text = "on [",bg='#CDCDCD')
@@ -270,6 +272,12 @@ x1.place(relx=0.76,rely =0.16,relwidth=0.08, relheight=0.75)
 
 x2 = tk.Entry(frame, font=70)
 x2.place(relx=0.89,rely =0.16,relwidth=0.08, relheight=0.75)
+
+#Binding Enter Key
+if x1.get()=="" and x2.get()=="":
+	func.bind("<Return>", (lambda event: calculator(func.get(),"","")))
+else:
+	func.bind("<Return>", (lambda event: calculator(func.get(),float(x1.get()),float(x2.get()))))
 x2.bind("<Return>", (lambda event: calculator(func.get(),float(x1.get()),float(x2.get()))))
 
 #Calculate Button
@@ -297,3 +305,4 @@ integT.place(relx=0.37,rely=0.2)
 
 #Main Loop 
 root.mainloop()
+
