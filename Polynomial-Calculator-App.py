@@ -17,8 +17,9 @@ from math import *
 from fractions import Fraction
 
 
-H, W = 494, 594
 
+H, W = 494, 594
+root = tk.Tk()
 def calculator(func,x1,x2):
 	try:	
 		#Taking the function and creating a list of coeff and exponents
@@ -226,7 +227,7 @@ def calculator(func,x1,x2):
 		pylab.show()	
 
 ###TKinter GUI
-root = tk.Tk()
+
 root.title("MathOps Calculator (2019)")
 canvas = tk.Canvas(root, height=H, width=W,bg="black",bd=0)
 canvas.pack()
@@ -240,38 +241,48 @@ backLbl = tk.Label(root, image=backImg)
 backLbl.place(relwidth=1, relheight=1)
 
 
-#Top Frame
-frame = tk.Frame(root, bg='#CDCDCD', bd=5)
-frame.place(relx=0.5, rely=0.08, relwidth=0.75, relheight=0.1, anchor='n')
+###Creating frames
+def createFrame  (x,y,w,h,border,anc):
+	frame  = tk.Frame(root, bg='#CDCDCD', bd=border)
+	frame.place(relx=x, rely=y, relwidth=w, relheight=h,anchor=anc)
+	return frame
 
-#Frame for Button
-frame2 = tk.Frame(root, bg='#CDCDCD', bd=3)
-frame2.place(relx=0.5, rely=0.20, relwidth=0.3, relheight=0.075, anchor='n')
+
+###Creating Labels
+def createLabel (frame,font,x,y,text,bg):
+	text = tk.Label(frame, font=font, text = text, bg=bg)
+	text.place(relx=x, rely=y)
+
+
+###Creating Entries
+def createEntry (frame,font,x,y,w,h):
+	entry = tk.Entry(frame,font=font)
+	entry.place(relx=x, rely=y, relwidth=w, relheight=h)
+	return entry
+
+#Frames
+topFrame = createFrame(0.5,0.08,0.75,0.1,5,"n")
+calcFrame = createFrame(0.5,0.2,0.3,0.075,3,"n")
+
 
 #Entry for function
-func = tk.Entry(frame, font=70)
-func.place(relx = 0.1,relwidth=0.572, relheight=1)
+func = createEntry(topFrame, 70, 0.1, 0, 0.572, 1)
+
 
 #Text for f(x)
-text = tk.Label(frame,font=(60),text = "f(x) =",bg='#CDCDCD')
-text.place(relx=0,rely=0.21)
+createLabel(topFrame,60,0,0.21,"f(x) =",'#CDCDCD')
+
 
 #Text for interval
-text = tk.Label(frame,font=(60),text = "on [",bg='#CDCDCD')
-text.place(relx=0.68,rely=0.21)
+createLabel(topFrame,60,0.68,0.21,"on [",'#CDCDCD')
+createLabel(topFrame,60,0.85,0.21,",",'#CDCDCD')
+createLabel(topFrame,60,0.98,0.21,"]",'#CDCDCD')
 
-text2 = tk.Label(frame,font=(60),text = ",",bg='#CDCDCD')
-text2.place(relx=0.85,rely=0.21)
-
-text3 = tk.Label(frame,font=(60),text = "]",bg='#CDCDCD')
-text3.place(relx=0.98,rely=0.21)
 
 #Interval (x1,x2)
-x1 = tk.Entry(frame, font=70)
-x1.place(relx=0.76,rely =0.16,relwidth=0.08, relheight=0.75)
+x1 = createEntry(topFrame, 70, 0.76, 0.16, 0.08, 0.75)
+x2 = createEntry(topFrame, 70, 0.89, 0.16, 0.08, 0.75)
 
-x2 = tk.Entry(frame, font=70)
-x2.place(relx=0.89,rely =0.16,relwidth=0.08, relheight=0.75)
 
 #Binding Enter Key
 if x1.get()=="" and x2.get()=="":
@@ -281,27 +292,22 @@ else:
 x2.bind("<Return>", (lambda event: calculator(func.get(),float(x1.get()),float(x2.get()))))
 
 #Calculate Button
-button = tk.Button(frame2, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),x1.get(),x2.get()))
+button = tk.Button(calcFrame, text="Calculate", font=(40), cursor="hand2",command=lambda: calculator(func.get(),x1.get(),x2.get()))
 button.place(relheight=1, relwidth=1)
 
-#Outputting the results
-frameDeriv = tk.Frame(root, bg='#CDCDCD', bd=3)
-frameDeriv.place(relx=0.5, rely=0.35, relwidth=0.75, relheight=0.25, anchor='n')
+##Outputting the results
+frameDeriv = createFrame(0.5,0.35,0.75,0.25,3,"n")
+frameInteg = createFrame(0.5,0.65,0.75,0.25,3,"n")
 
-frameInteg = tk.Frame(root, bg='#CDCDCD', bd=3)
-frameInteg.place(relx=0.5, rely=0.65, relwidth=0.75, relheight=0.25, anchor='n')
-
+#White Background
 labelDeriv = tk.Label(frameDeriv)
 labelDeriv.place(relwidth=1, relheight=1)
 
 labelInteg = tk.Label(frameInteg)
 labelInteg.place(relwidth=1, relheight=1)
 
-derivT = tk.Label(frameDeriv,font=(60),text = "Derivative Function:")
-derivT.place(relx=0.37,rely=0.2)
-
-integT = tk.Label(frameInteg,font=(60),text = "Integral Function:")
-integT.place(relx=0.37,rely=0.2)
+createLabel(frameDeriv, 60,0.37,0.2,"Derivative Function:","#FFFFFF")
+createLabel(frameInteg, 60,0.37,0.2,"Integral Function:","#FFFFFF")
 
 #Main Loop 
 root.mainloop()
