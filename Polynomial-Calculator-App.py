@@ -262,7 +262,7 @@ def createEntry (frame,font,x,y,w,h):
 
 #Frames
 topFrame = createFrame(0.5,0.08,0.75,0.1,5,"n")
-calcFrame = createFrame(0.5,0.2,0.3,0.075,3,"n")
+calcFrame = createFrame(0.5,0.21,0.3,0.075,2,"n")
 
 
 #Entry for function
@@ -296,8 +296,8 @@ button = tk.Button(calcFrame, text="Calculate", font=(40), cursor="hand2",comman
 button.place(relheight=1, relwidth=1)
 
 ##Outputting the results
-frameDeriv = createFrame(0.5,0.35,0.75,0.25,3,"n")
-frameInteg = createFrame(0.5,0.65,0.75,0.25,3,"n")
+frameDeriv = createFrame(0.5,0.35,0.75,0.25,0.3,"n")
+frameInteg = createFrame(0.5,0.65,0.75,0.25,0.3,"n")
 
 #White Background
 labelDeriv = tk.Label(frameDeriv)
