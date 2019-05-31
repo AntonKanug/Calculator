@@ -1,7 +1,7 @@
 '''
 Anton Kanugalwattage
 May 4, 2019
-Calculator for ploynomials, Overview:
+Calculator for polynomials, Overview:
 - Derivative, Slope at a point
 - Integral, Definite Integral
 - Graphing
