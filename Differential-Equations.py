@@ -1,7 +1,7 @@
 '''
 Anton Kanugalwattage
 May 9, 2019
-Finding solutions using Euler's Method for Differential Equations
+Finding solutions using Euler's Method for First Ordern Differential Equations
 '''
 
 from matplotlib import pyplot as pylab
