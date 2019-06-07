@@ -2,8 +2,8 @@
 Anton Kanugalwattage
 May 4, 2019
 Calculator for polynomials, Overview:
-- Derivative, Slope at a point
-- Integral, Definite Integral
+- Derivatives, Slope at a point
+- Integrals, Definite Integral
 - Graphing
 '''
 
