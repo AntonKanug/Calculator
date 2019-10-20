@@ -4,10 +4,10 @@
 Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing though an app using Matplotlib and Tkinter.  
 Demo: https://youtu.be/eh2J28K71BA
 
-# Polynomial-Calculator
+## Polynomial-Calculator
 Description: Calculator with mathematical operations such as Derivatives, Integrals & Graphing.
 
-# Differential-Equations
+## Differential-Equations
 Description: Calculator that finds solution using Euler's Method for first order ODE.
 
 # Matplotlib Install Guide:
@@ -16,7 +16,7 @@ In your terminal:
 pip install matplotlib
 ```
 
-# Graphics Install Guide:
+## Graphics Install Guide:
 1. Download the graphics.py file
 2. Move graphics.py into the site-packages folder
 
