@@ -10,7 +10,7 @@ Description: Calculator with mathematical operations such as Derivatives, Integr
 ## Differential-Equations
 Description: Calculator that finds solution using Euler's Method for first order ODE.
 
-# Matplotlib Install Guide:
+## Matplotlib Install Guide:
 In your terminal:  
 ```
 pip install matplotlib
